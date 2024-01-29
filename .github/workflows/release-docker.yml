@@ -27,7 +27,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY_IMAGE }}
           tags: |
-            type=raw,value=${GITHUB_REF##*/}
+            type=raw,value=${{ github.ref_name }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
@@ -47,7 +47,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           build-args: |
-            --build-arg SCARB_VERSION=${GITHUB_REF##*/}
+            --build-arg SCARB_VERSION=${{ github.ref_name }}
           context: .
           file: Dockerfile
           platforms: ${{ matrix.platform }}
